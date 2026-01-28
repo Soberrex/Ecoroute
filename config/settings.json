@@ -1,0 +1,44 @@
+{
+  "genetic_algorithm": {
+    "population_size": 100,
+    "generations": 200,
+    "crossover_rate": 0.8,
+    "mutation_rate": 0.2,
+    "elitism_rate": 0.05,
+    "tournament_size": 5,
+    "early_stopping_generations": 20,
+    "min_population_diversity": 0.1
+  },
+  "vehicles": {
+    "default_capacity": 100.0,
+    "default_fuel_efficiency": 0.2,
+    "default_max_route_time": 480.0,
+    "default_fixed_cost": 50.0,
+    "default_variable_cost": 0.5,
+    "fuel_cost_per_liter": 1.5
+  },
+  "locations": {
+    "default_service_time": 5.0,
+    "time_window_penalty_weight": 10.0,
+    "capacity_penalty_weight": 100.0,
+    "time_penalty_weight": 5.0
+  },
+  "optimization": {
+    "use_2opt": true,
+    "2opt_max_iterations": 10,
+    "adaptive_mutation": true,
+    "mutation_rate_min": 0.05,
+    "mutation_rate_max": 0.4,
+    "diversity_threshold": 0.3
+  },
+  "simulation": {
+    "traffic_zones": [
+      {"x_min": 0, "x_max": 20, "y_min": 0, "y_max": 20, "slowdown_factor": 1.5},
+      {"x_min": 30, "x_max": 50, "y_min": 30, "y_max": 50, "slowdown_factor": 2.0}
+    ],
+    "peak_hours": [
+      {"start": 420, "end": 540, "slowdown_factor": 1.8},
+      {"start": 900, "end": 1020, "slowdown_factor": 1.5}
+    ]
+  }
+}
