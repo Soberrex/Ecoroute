@@ -1,12 +1,12 @@
 {
   "genetic_algorithm": {
-    "population_size": 100,
-    "generations": 200,
-    "crossover_rate": 0.8,
-    "mutation_rate": 0.2,
-    "elitism_rate": 0.05,
+    "population_size": 80,
+    "generations": 150,
+    "crossover_rate": 0.85,
+    "mutation_rate": 0.15,
+    "elitism_rate": 0.10,
     "tournament_size": 5,
-    "early_stopping_generations": 20,
+    "early_stopping_generations": 30,
     "min_population_diversity": 0.1
   },
   "vehicles": {
@@ -28,8 +28,8 @@
     "2opt_max_iterations": 10,
     "adaptive_mutation": true,
     "mutation_rate_min": 0.05,
-    "mutation_rate_max": 0.4,
-    "diversity_threshold": 0.3
+    "mutation_rate_max": 0.25,
+    "diversity_threshold": 0.2
   },
   "simulation": {
     "traffic_zones": [

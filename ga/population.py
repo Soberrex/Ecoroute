@@ -54,7 +54,7 @@ class Population:
         self.generation = 0
     
     def initialize_mixed(self, locations: Dict[int, Location], depot_id: int = 0, 
-                        greedy_ratio: float = 0.1) -> None:
+                        greedy_ratio: float = 0.3) -> None:
         """
         Initialize population with mixed random and greedy chromosomes.
         

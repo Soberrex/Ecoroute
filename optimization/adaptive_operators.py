@@ -248,16 +248,24 @@ class AdaptiveGA:
         Returns:
             True if population should be reset
         """
+        # Don't reset too frequently - need at least 10 generations between resets
         if self.generation < 50:  # Don't reset too early
             return False
         
-        # Reset if stagnated for too long
-        if self.generation - self.last_improvement > 50:
-            return True
+        # Track generations since last reset to prevent aggressive resetting
+        if not hasattr(self, 'generations_since_reset'):
+            self.generations_since_reset = 0
         
-        # Reset if diversity is extremely low
-        diversity = self.current_config.get('diversity', 0.5)
-        if diversity < 0.05:
+        self.generations_since_reset += 1
+        
+        # Only allow reset if enough generations have passed
+        if self.generations_since_reset < 10:
+            return False
+        
+        # Only reset when truly stagnant (counter > 20)
+        stagnation_counter = self.generation - self.last_improvement
+        if stagnation_counter > 20:
+            self.generations_since_reset = 0
             return True
         
         return False
