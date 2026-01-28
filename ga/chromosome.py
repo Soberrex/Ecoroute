@@ -73,16 +73,17 @@ class Chromosome:
             new_vehicle.current_location = depot
             vehicle_copies.append(new_vehicle)
         
-        # Simple decoding: assign locations to vehicles in order
+        # IMPROVED: Capacity-aware bin-packing style assignment
         current_vehicle_index = 0
         current_route_locations = []
+        current_load = 0.0  # Track current load
         
         for gene in self.genes:
             location = locations[gene]
             
-            # Check if we need to start a new route
-            if max_locations_per_route and len(current_route_locations) >= max_locations_per_route:
-                # Create route with current vehicle
+            # Check if adding this location would exceed capacity
+            if current_load + location.demand_weight > vehicle_copies[current_vehicle_index].max_capacity:
+                # Save current route if it has locations
                 if current_route_locations:
                     route = Route(
                         vehicle=vehicle_copies[current_vehicle_index],
@@ -92,16 +93,22 @@ class Chromosome:
                     self.routes.append(route)
                 
                 # Move to next vehicle
-                current_vehicle_index = (current_vehicle_index + 1) % len(vehicle_copies)
+                current_vehicle_index += 1
+                if current_vehicle_index >= len(vehicle_copies):
+                    # If we run out of vehicles, reuse them (will incur penalty)
+                    current_vehicle_index = 0
+                
                 current_route_locations = []
+                current_load = 0.0  # Reset load
             
             # Add location to current route
             current_route_locations.append(location)
+            current_load += location.demand_weight  # Update load
         
         # Add the last route
         if current_route_locations:
             if current_vehicle_index >= len(vehicle_copies):
-                current_vehicle_index = 0  # Wrap around if needed
+                current_vehicle_index = len(vehicle_copies) - 1
             route = Route(
                 vehicle=vehicle_copies[current_vehicle_index],
                 depot=depot,
